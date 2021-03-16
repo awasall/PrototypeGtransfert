@@ -1,0 +1,16 @@
+Entities/Utilisateur.class
+Entities/Compte.class
+Service/UserService.class
+Iservice/IPartenaire.class
+Repository/PartenaireRepository.class
+Repository/JDBC/MysqlDataSource.class
+Service/DepotService.class
+Iservice/IDepot.class
+Service/CompteService.class
+Entities/Partenaire.class
+Iservice/IUser.class
+awa/sall/MainT.class
+Service/PartenaireService.class
+Iservice/ICompte.class
+Controller/PartenaireController.class
+Entities/Depot.class

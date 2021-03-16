@@ -1,0 +1,16 @@
+/home/awa/Téléchargements/PrototypeGTransfert/src/main/java/Entities/Partenaire.java
+/home/awa/Téléchargements/PrototypeGTransfert/src/main/java/Repository/JDBC/MysqlDataSource.java
+/home/awa/Téléchargements/PrototypeGTransfert/src/main/java/Entities/Utilisateur.java
+/home/awa/Téléchargements/PrototypeGTransfert/src/main/java/Repository/PartenaireRepository.java
+/home/awa/Téléchargements/PrototypeGTransfert/src/main/java/Controller/PartenaireController.java
+/home/awa/Téléchargements/PrototypeGTransfert/src/main/java/Entities/Depot.java
+/home/awa/Téléchargements/PrototypeGTransfert/src/main/java/Service/UserService.java
+/home/awa/Téléchargements/PrototypeGTransfert/src/main/java/Service/PartenaireService.java
+/home/awa/Téléchargements/PrototypeGTransfert/src/main/java/Iservice/IUser.java
+/home/awa/Téléchargements/PrototypeGTransfert/src/main/java/Iservice/IDepot.java
+/home/awa/Téléchargements/PrototypeGTransfert/src/main/java/Entities/Compte.java
+/home/awa/Téléchargements/PrototypeGTransfert/src/main/java/Service/CompteService.java
+/home/awa/Téléchargements/PrototypeGTransfert/src/main/java/awa/sall/MainT.java
+/home/awa/Téléchargements/PrototypeGTransfert/src/main/java/Iservice/ICompte.java
+/home/awa/Téléchargements/PrototypeGTransfert/src/main/java/Iservice/IPartenaire.java
+/home/awa/Téléchargements/PrototypeGTransfert/src/main/java/Service/DepotService.java

@@ -1,0 +1,18 @@
+
+                           NOM Projet: Gestion de transfert
+
+Mis en place d’une application de transfert d’argent dont le système doit être capable d’inscrire des
+partenaires. Le système doit être capable de faire des envois et des retraits dont l’Etat a 30% , le
+partenaire retrait a 20%, le partenaire envoi a 10% et le système Wari a 40%.
+Chaque partenaire peut créer des utilisateurs
+Chaque partenaire a un compte et fait des dépôts sur le compte
+Le système peut Bloquer un partenaire
+Le sytème peut Lister les partenaires
+Le partenaire peut Lister ses comptes
+Le système peut Lister les partenaires bloqués
+
+Voici les différents rôles:
+le rôle superAdmin qui créé des partenaires
+le rôle Partenaire,
+le rôle Caissier qui crée des comptes pour le parteaire
+le rôle utilisateurs simple que le partenaire crée
