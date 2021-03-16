@@ -88,4 +88,22 @@ public class JDBCBasedDepotRepository  implements DepotRepository{
         }
         return depots;
     }
+
+    @Override
+    public int add(Depot d) {
+        String sql="INSERT INTO Depot VALUES (NULL,?,?,?)";
+        try {
+            db.initPrepare(sql);
+
+            db.getPstm().setInt(1, d.getMontant());
+            SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
+            db.getPstm().setString(2,simpleDateFormat.format(d.getDateDepot()));
+            db.getPstm().setInt(3,d.getCompte().getIdC());
+            ok=db.executeMaj();
+
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return ok;
+    }
 }

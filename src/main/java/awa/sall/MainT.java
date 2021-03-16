@@ -8,16 +8,15 @@ import domain.Compte;
 import domain.Depot;
 import domain.Partenaire;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class MainT {
     //private static IPartenaire partenaireService;
     //private final PartenaireService partenaireService;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException {
         int choix = 0;
         int choix1 = 0;
         int choix2 = 0;
@@ -159,11 +158,35 @@ public class MainT {
             }
 
             if (choix == 3) {
-                System.out.println("1- Liste Dépot");
-                System.out.println("2- detail depot");
-                System.out.println("3- lister les historiques de dépot d'un compte");
+                System.out.println("1- Faire un Dépot");
+                System.out.println("2- Liste Dépot");
+                System.out.println("3- detail depot");
+                System.out.println("4- lister les historiques de dépot d'un compte");
                 choix1 = sc.nextInt();
-                if (choix1==1) {
+                if(choix1==1){
+                    Depot d = new Depot();
+                    System.out.println("saisir le montant");
+                    //String nunCompute=sc.nextLine();
+                    d.setMontant(sc.nextInt());
+                    System.out.println("Saisir date de depot (AAAA-MM-JJ) :");
+                    String str = sc.next();
+                    if(str.matches("[0-9]{4}-[0-9]{2}-[0-9]{2}")){
+                        SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+                        Date date = f.parse(str);
+                        d.setDateDepot(date);
+                    }
+                    else {
+                        System.out.println("Erreur format");
+                    }
+                    Compte c=new Compte();
+                    System.out.println("saisir le compte id");
+                    int compt=sc.nextInt();
+                    c.setIdC(compt);
+                    d.setCompte(c);
+                    JDBCBasedDepotRepository iemp =new JDBCBasedDepotRepository();
+                    iemp.add(d);
+                }
+                if (choix1==2) {
                     JDBCBasedDepotRepository jdbcBasedDepotRepository = new JDBCBasedDepotRepository();
                     List<Depot> depots = jdbcBasedDepotRepository.getAll();
                     for (int i = 0; i < depots.size(); i++) {
@@ -174,7 +197,7 @@ public class MainT {
 
                     }
                 }
-                if (choix1 == 2) {
+                if (choix1 == 3) {
                     System.out.print("Saisir l'id du Depot: ");
                     int idDepot = sc.nextInt();
 
@@ -185,7 +208,7 @@ public class MainT {
                     System.out.print(jdbcBasedDepotRepository.getById(idDepot).getDateDepot() + "\t");
                     System.out.print(jdbcBasedDepotRepository.getById(idDepot).getCompte().getIdC() + "\t");
                 }
-                if (choix1 == 3) {
+                if (choix1 == 4) {
                     System.out.print("Saisir l'id du Compte: ");
                     int idcompte = sc.nextInt();
                     JDBCBasedDepotRepository jdbcBasedDepotRepository = new JDBCBasedDepotRepository();
