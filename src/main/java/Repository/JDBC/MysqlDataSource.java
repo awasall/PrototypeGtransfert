@@ -3,61 +3,39 @@ import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.*;
 import java.sql.DriverManager;
-public class MysqlDataSource  {
-    private Connection cnx;
-    private ResultSet res;
-    private PreparedStatement pstm;
-    private int ok;
+public class MysqlDataSource  implements DataSource{
+    public static final String DB_USER = "symfony";
+    public static final String DB_PASSWORD = "passer";
+    public static final String NOM_BASE = "WARIJEE";
 
-    private void getConnection(){
-        String url="jdbc:mysql://localhost:3306/WARIJEE";
-        String user="symfony";
-        String password="passer";
+    public static final String IP = "localhost";
+    public static final String PORT = "3306";
+
+    public Connection createConnection(){
         try {
-            //Class.forName("com.mysql.jdbc.Driver");
-            cnx= DriverManager.getConnection(url,user,password);
-        }catch (Exception ex){
-            ex.printStackTrace();
+            Class c = Class.forName("com.mysql.cj.jdbc.Driver");
+            Driver pilote = (Driver) c.newInstance();
+            // enregistrement du pilote auprès du DriverManager
+            DriverManager.registerDriver(pilote);
+            // Protocole de connexion
+            String protocole = "jdbc:mysql:";
+            // Adresse IP de l’hôte de la base et port
+            String ip = IP;  // dépend du contexte
+            String port = PORT;  // port MySQL par défaut
+            // Nom de la base ;
+            String nomBase = NOM_BASE;  // dépend du contexte
+            // Chaîne de connexion
+            String chaineDeConnexion = protocole + "//" + ip + ":" + port + "/" + nomBase;
+            // Identifiants de connexion et mot de passe
+            String dbUser = DB_USER;  // dépend du contexte
+            String dbPassword = DB_PASSWORD;  // dépend du contexte
+            // Connexion
+            return DriverManager.getConnection(chaineDeConnexion, dbUser, dbPassword);
         }
-
-    }
-    public void initPrepare(String sql){
-        try {
-            getConnection();
-            pstm=cnx.prepareStatement(sql);
-        }catch (Exception ex){
-            ex.printStackTrace();
-
+        catch (Exception ex){
+            System.err.println("Une erreur est survenue lors de la création de la connexion: ");
+            System.err.println(ex.getMessage());
+            return null;
         }
-
-    }
-    public ResultSet executeSelect(){
-        try {
-            res=pstm.executeQuery();
-        }catch (Exception ex){
-            ex.printStackTrace();
-
-        }
-        return res;
-    }
-    public  int executeMaj(){
-        try {
-            ok=pstm.executeUpdate();
-        }catch (Exception ex){
-            ex.printStackTrace();
-        }
-        return ok;
-    }
-    public void closeConnection(){
-        try {
-            if(cnx!=null)
-                cnx.close();
-
-        }catch (Exception ex){
-            ex.printStackTrace();
-        }
-}
-    public PreparedStatement getPstm() {
-        return pstm;
     }
 }

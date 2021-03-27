@@ -1,7 +1,9 @@
 package awa.sn.reposotory.jdbc;
-import Repository.JDBC.DataSource;
-import Repository.JDBC.JDBCBasedPartenaireRepository;
 
+import Repository.JDBC.DataSource;
+import Repository.JDBC.JDBCBasedCompteRepository;
+import Repository.JDBC.JDBCBasedPartenaireRepository;
+import domain.Compte;
 import domain.Partenaire;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,27 +16,27 @@ import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class TestJDBCBasedPartenaireRepository {
-    private JDBCBasedPartenaireRepository jdbcBasedPartenaireRepository;
+
+public class TestJDBCBasedCompteRepository {
+    private JDBCBasedCompteRepository jdbcBasedCompteRepository;
     @BeforeEach
     void setUp() throws SQLException {
         System.out.println("Dans la méthode setup");
         //Arrange
         DataSource dataSource = new MockDataSource();
-     jdbcBasedPartenaireRepository = new JDBCBasedPartenaireRepository(dataSource);
+        jdbcBasedCompteRepository=new JDBCBasedCompteRepository(dataSource);
+
     }
     @Test
-    void getAllPartanires() throws SQLException {
-        System.out.println("Dans la méthode get partenaire");
+    void getAllComptes(){
+        System.out.println("Dans la méthode get compte");
         //Act
-        DataSource dataSource = mock(DataSource.class);
-        when(dataSource.createConnection()).thenThrow(new RuntimeException("Base de données non disponible"));
-        List<Partenaire> partenaires = jdbcBasedPartenaireRepository.getAll();
+        List<Compte> comptes = jdbcBasedCompteRepository.getAll();
         //Assert
-        assertEquals(4, partenaires.size(), "le nombre de partenaires doit être 4");
+        assertEquals(5, comptes.size(), "le nombre de partenaires doit être 5");
     }
     @Test
-    void getByIdShouldReturnPartenaireWhenAvailable() throws SQLException {
+    void getByIdShouldReturnCompteWhenAvailable() throws SQLException {
         DataSource dataSource = mock(DataSource.class);
         Connection connection = mock(Connection.class);
         when(dataSource.createConnection()).thenReturn(connection);
@@ -44,15 +46,12 @@ public class TestJDBCBasedPartenaireRepository {
         when(connection.prepareStatement(anyString())).thenReturn(preparedStatement);
         ResultSet resultSet2 = mock(ResultSet.class);
         when(preparedStatement.executeQuery()).thenReturn(resultSet2);
-        when(resultSet2.getInt(anyString())).thenReturn(0);
-        when(resultSet2.getString(anyString())).thenReturn("aaaaa");
-        Partenaire partenaire = jdbcBasedPartenaireRepository.getById(0);
-        assertNotNull(partenaire);
-        assertEquals(0, partenaire.getIdP());
-        //assertEquals("aaaaa", partenaire.getNinea());
+        when(resultSet2.getInt(anyString())).thenReturn(2);
+        when(resultSet2.getString(anyString())).thenReturn("aaaa");
+        Compte compte = jdbcBasedCompteRepository.getById(2);
+        assertNotNull(compte);
+        assertEquals(2, compte.getIdC());
+        assertEquals("aaaa", compte.getNumerCompte());
 
     }
-
-
 }
-

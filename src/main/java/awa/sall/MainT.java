@@ -1,9 +1,6 @@
 package awa.sall;
 
-import Repository.JDBC.JDBCBasedCompteRepository;
-import Repository.JDBC.JDBCBasedDepotRepository;
-import Repository.JDBC.JDBCBasedPartenaireRepository;
-import Repository.PartenaireRepository;
+import Repository.JDBC.*;
 import domain.Compte;
 import domain.Depot;
 import domain.Partenaire;
@@ -64,14 +61,16 @@ public class MainT {
                 System.out.println("Statut");
                 String statut=sc.next();
                 p.setStatut(statut);
+                MysqlDataSource dataSource=new MysqlDataSource();
 
-                JDBCBasedPartenaireRepository jdbcBasedPartenaireRepository =new JDBCBasedPartenaireRepository();
+                JDBCBasedPartenaireRepository jdbcBasedPartenaireRepository =new JDBCBasedPartenaireRepository(dataSource);
                jdbcBasedPartenaireRepository.add(p);
 
 
             }
             if (choix1 == 2) {
-                JDBCBasedPartenaireRepository partenaireRepository = new JDBCBasedPartenaireRepository();
+                MysqlDataSource dataSource=new MysqlDataSource();
+                JDBCBasedPartenaireRepository partenaireRepository = new JDBCBasedPartenaireRepository(dataSource);
                 List<Partenaire> partenaires = partenaireRepository.getAll();
                 for (int i = 0; i < partenaires.size(); i++) {
                     System.out.print(partenaires.get(i).getIdP() + "\t");
@@ -87,10 +86,10 @@ public class MainT {
             if (choix1 == 3) {
                 System.out.print("Saisir id Partenaire: ");
                 int idPartenaire = sc.nextInt();
+                MysqlDataSource dataSource=new MysqlDataSource();
 
-                //get prestation by id
-                JDBCBasedPartenaireRepository partenaireRepository = new JDBCBasedPartenaireRepository();
-
+                //get partenaire by id
+                JDBCBasedPartenaireRepository partenaireRepository = new JDBCBasedPartenaireRepository(dataSource);
                 System.out.print(partenaireRepository.getById(idPartenaire).getIdP() + "\t");
                 System.out.print(partenaireRepository.getById(idPartenaire).getNinea() + "\t");
             }
@@ -115,13 +114,15 @@ public class MainT {
             int part=sc.nextInt();
             p.setIdP(part);
             c.setPartenaire(p);
-            JDBCBasedCompteRepository iemp =new JDBCBasedCompteRepository();
+                MysqlDataSource dataSource=new MysqlDataSource();
+            JDBCBasedCompteRepository iemp =new JDBCBasedCompteRepository(dataSource);
             iemp.add(c);
 
         }
-            }
+
             if (choix1 == 2) {
-                JDBCBasedCompteRepository jdbcBasedCompteRepository = new JDBCBasedCompteRepository();
+                MysqlDataSource dataSource=new MysqlDataSource();
+                JDBCBasedCompteRepository jdbcBasedCompteRepository = new JDBCBasedCompteRepository(dataSource);
                 List<Compte> comptes = jdbcBasedCompteRepository.getAll();
                 for (int i = 0; i < comptes.size(); i++) {
                     System.out.print(comptes.get(i).getIdC() + "\t");
@@ -134,9 +135,9 @@ public class MainT {
             if (choix1 == 3) {
                 System.out.print("Saisir l'id du Compte: ");
                 int idCompte = sc.nextInt();
-
+                MysqlDataSource dataSource=new MysqlDataSource();
                 //get Compte by id
-                JDBCBasedCompteRepository jdbcBasedCompteRepository = new JDBCBasedCompteRepository();
+                JDBCBasedCompteRepository jdbcBasedCompteRepository = new JDBCBasedCompteRepository(dataSource);
                 System.out.print(jdbcBasedCompteRepository.getById(idCompte).getIdC() + "\t");
                 System.out.print(jdbcBasedCompteRepository.getById(idCompte).getNumerCompte() + "\t");
                 System.out.print(jdbcBasedCompteRepository.getById(idCompte).getSolde() + "\t");
@@ -145,7 +146,8 @@ public class MainT {
             if (choix1 == 4) {
                 System.out.print("Saisir l'id du partenaire: ");
                 int idpartenaire = sc.nextInt();
-                JDBCBasedCompteRepository jdbcBasedCompteRepository = new JDBCBasedCompteRepository();
+                MysqlDataSource dataSource=new MysqlDataSource();
+                JDBCBasedCompteRepository jdbcBasedCompteRepository = new JDBCBasedCompteRepository(dataSource);
                 List<Compte> comptes = jdbcBasedCompteRepository.getByIdP(idpartenaire);
                 for (int i = 0; i < comptes.size(); i++) {
                     System.out.print(comptes.get(i).getIdC() + "\t");
@@ -155,7 +157,7 @@ public class MainT {
 
                 }
 
-            }
+            }}
 
             if (choix == 3) {
                 System.out.println("1- Faire un Dépot");
@@ -183,26 +185,27 @@ public class MainT {
                     int compt=sc.nextInt();
                     c.setIdC(compt);
                     d.setCompte(c);
-                    JDBCBasedDepotRepository iemp =new JDBCBasedDepotRepository();
+                    MysqlDataSource dataSource=new MysqlDataSource();
+                    JDBCBasedDepotRepository iemp =new JDBCBasedDepotRepository(dataSource);
                     iemp.add(d);
                 }
                 if (choix1==2) {
-                    JDBCBasedDepotRepository jdbcBasedDepotRepository = new JDBCBasedDepotRepository();
+                    MysqlDataSource dataSource=new MysqlDataSource();
+                    JDBCBasedDepotRepository jdbcBasedDepotRepository = new JDBCBasedDepotRepository(dataSource);
                     List<Depot> depots = jdbcBasedDepotRepository.getAll();
                     for (int i = 0; i < depots.size(); i++) {
                         System.out.print(depots.get(i).getIdD() + "\t");
                         System.out.print(depots.get(i).getMontant() + "\t");
                         System.out.print(depots.get(i).getDateDepot() + "\t");
                         System.out.print(depots.get(i).getCompte().getIdC() + "\n");
-
                     }
                 }
                 if (choix1 == 3) {
                     System.out.print("Saisir l'id du Depot: ");
                     int idDepot = sc.nextInt();
-
+                    MysqlDataSource dataSource=new MysqlDataSource();
                     //get Compte by id
-                    JDBCBasedDepotRepository jdbcBasedDepotRepository = new JDBCBasedDepotRepository();
+                    JDBCBasedDepotRepository jdbcBasedDepotRepository = new JDBCBasedDepotRepository(dataSource);
                     System.out.print(jdbcBasedDepotRepository.getById(idDepot).getIdD() + "\t");
                     System.out.print(jdbcBasedDepotRepository.getById(idDepot).getMontant() + "\t");
                     System.out.print(jdbcBasedDepotRepository.getById(idDepot).getDateDepot() + "\t");
@@ -211,7 +214,8 @@ public class MainT {
                 if (choix1 == 4) {
                     System.out.print("Saisir l'id du Compte: ");
                     int idcompte = sc.nextInt();
-                    JDBCBasedDepotRepository jdbcBasedDepotRepository = new JDBCBasedDepotRepository();
+                    MysqlDataSource dataSource=new MysqlDataSource();
+                    JDBCBasedDepotRepository jdbcBasedDepotRepository = new JDBCBasedDepotRepository(dataSource);
                     List<Depot> depots = jdbcBasedDepotRepository.getByIdC(idcompte);
                     for (int i = 0; i < depots.size(); i++) {
                         System.out.print(depots.get(i).getIdD() + "\t");
